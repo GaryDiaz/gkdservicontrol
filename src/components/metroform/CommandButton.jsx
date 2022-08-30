@@ -16,6 +16,7 @@ export const CommandButton = ({
         data-role="ripple"
         data-ripple-color={rippleColor}
         style={{ width: "100%" }}
+        {...props}
       >
         <span className="icon">
           <i className={"bi " + icon}></i>
