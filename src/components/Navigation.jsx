@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ActiveLink } from "./react-router/ActiveLink";
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <nav
       className="app-bar bg-darkTeal fg-white app-bar-expand"
@@ -21,9 +21,6 @@ export const Navigation = () => {
       </Link>
       <ul className="app-bar-menu">
         <li>
-          <ActiveLink to="login">Login</ActiveLink>
-        </li>
-        <li>
           <ActiveLink to="servicios">Servicios</ActiveLink>
         </li>
         <li>
@@ -36,3 +33,5 @@ export const Navigation = () => {
     </nav>
   );
 };
+
+export default Navigation;

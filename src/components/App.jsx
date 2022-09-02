@@ -1,17 +1,17 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { Empleados } from "./Empleados";
-import { Usuarios } from "./Usuarios";
-import { Clientes } from "./Clientes";
-import { Servicios } from "./Servicios";
-import { Login } from "./Login";
-import { Navigation } from "./Navigation";
-import { Home } from "./Home";
 import { useState } from "react";
+import Navigation from "./Navigation";
+import Home from "./Home";
+import Servicios from "./Servicios";
+import Clientes from "./Clientes";
+import Empleados from "./Empleados";
+import Usuarios from "./Usuarios";
+import Login from "./Login";
 
-function App() {
-  const [token, setToken] = useState(localStorage.getItem("gkd-token"));
+const App = () => {
+  const API_REST = "http://192.168.1.109/gkd_servicontrol_api/";
+  const [token, setToken] = useState(localStorage.getItem("GKD-Token"));
   const { pathname } = useLocation();
-  console.log(pathname);
   const toLogin = () => {
     window.location.href = "/login";
   };
@@ -32,16 +32,23 @@ function App() {
       {token ? <Navigation /> : <br />}
       <div style={{ marginTop: "60px" }} className="container">
         <Routes>
-          <Route path="/" exact element={token ? <Home /> : toLoginMessage} />
+          <Route
+            path="/"
+            exact
+            element={token ? <Home token={token} apiRest={API_REST} /> : toLoginMessage}
+          />
           <Route path="/servicios" element={token ? <Servicios /> : toLoginMessage} />
           <Route path="/clientes" element={token ? <Clientes /> : toLoginMessage} />
           <Route path="/empleados" element={token ? <Empleados /> : toLoginMessage} />
           <Route path="/usuarios" element={token ? <Usuarios /> : toLoginMessage} />
-          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route
+            path="/login"
+            element={<Login token={token} setToken={setToken} apiRest={API_REST} />}
+          />
         </Routes>
       </div>
     </div>
   );
-}
+};
 
 export default App;

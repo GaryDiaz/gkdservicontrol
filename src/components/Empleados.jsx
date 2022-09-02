@@ -8,3 +8,5 @@ export const Empleados = () => {
     </div>
   );
 };
+
+export default Empleados;
