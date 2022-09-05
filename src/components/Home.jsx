@@ -1,32 +1,34 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Servicio from "./Servicio";
+import { getList } from "./servicios/ApiFetch";
 
-const Home = ({ apiRest, token }) => {
+const Home = ({ token }) => {
   useEffect(() => {
-    fetch(apiRest + "servicios", {
-      method: "GET",
-      headers: {
-        "Content-Type": "aplication/json",
-        "GKD-Token": token,
-      },
-    })
-      .then((response) => response.json())
+    getList("servicios", token)
       .catch((error) => console.error("Error: ", error))
       .then((request) => setServicios(request.data));
-  }, [apiRest, token]);
+  }, [token]);
 
   const [servicios, setServicios] = useState([]);
 
-  return servicios.length > 0 ? (
-    <div>
+  return (
+    <motion.div
+      initial={{ opacity: 0, scaleX: 0 }}
+      animate={{ opacity: 1, scaleX: 1 }}
+      exit={{ opacity: 0, scaleX: 0 }}
+      transition={{ duration: 0.25 }}
+    >
       <h1>Lista de Servicios</h1>
-      {servicios.map((servicio) => {
-        return <Servicio key={servicio.id} servicio={servicio} />;
-      })}
-    </div>
-  ) : (
-    <h2>No se encontraron servicios</h2>
+      {servicios.length > 0 ? (
+        servicios.map((servicio) => {
+          return <Servicio key={servicio.id} servicio={servicio} />;
+        })
+      ) : (
+        <h2>No se encontraron servicios</h2>
+      )}
+    </motion.div>
   );
 };
 

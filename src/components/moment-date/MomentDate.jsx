@@ -14,9 +14,12 @@ const MomentDate = ({
 
   return (
     <div className={props.className}>
+      <i class="bi bi-calendar-event" style={{ paddingRight: "10px" }}></i>
       <strong>{label + ": "}</strong>
-      {moment(date).format(format)}
-      {includeRelativeDate ? <div>{moment(date).fromNow()}</div> : ""}
+      {includeRelativeDate && moment(date).isValid()
+        ? "(" + moment(date).fromNow() + ")"
+        : ""}
+      <div>{moment(date).isValid() ? moment(date).format(format) : "-"}</div>
     </div>
   );
 };

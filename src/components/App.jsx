@@ -1,5 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import Navigation from "./Navigation";
 import Home from "./Home";
 import Servicios from "./Servicios";
@@ -9,9 +10,8 @@ import Usuarios from "./Usuarios";
 import Login from "./Login";
 
 const App = () => {
-  const API_REST = "http://192.168.1.109/gkd_servicontrol_api/";
   const [token, setToken] = useState(localStorage.getItem("GKD-Token"));
-  const { pathname } = useLocation();
+  const location = useLocation();
   const toLogin = () => {
     window.location.href = "/login";
   };
@@ -24,28 +24,39 @@ const App = () => {
     </div>
   );
 
-  if (!token && pathname !== "/login") {
+  if (!token && location.pathname !== "/login") {
     setTimeout(toLogin(), 500);
   }
   return (
     <div>
       {token ? <Navigation /> : <br />}
       <div style={{ marginTop: "60px" }} className="container">
-        <Routes>
-          <Route
-            path="/"
-            exact
-            element={token ? <Home token={token} apiRest={API_REST} /> : toLoginMessage}
-          />
-          <Route path="/servicios" element={token ? <Servicios /> : toLoginMessage} />
-          <Route path="/clientes" element={token ? <Clientes /> : toLoginMessage} />
-          <Route path="/empleados" element={token ? <Empleados /> : toLoginMessage} />
-          <Route path="/usuarios" element={token ? <Usuarios /> : toLoginMessage} />
-          <Route
-            path="/login"
-            element={<Login token={token} setToken={setToken} apiRest={API_REST} />}
-          />
-        </Routes>
+        <AnimatePresence>
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/"
+              exact
+              element={token ? <Home token={token} /> : toLoginMessage}
+            />
+            <Route
+              path="/servicios"
+              element={token ? <Servicios token={token} /> : toLoginMessage}
+            />
+            <Route
+              path="/clientes"
+              element={token ? <Clientes token={token} /> : toLoginMessage}
+            />
+            <Route
+              path="/empleados"
+              element={token ? <Empleados token={token} /> : toLoginMessage}
+            />
+            <Route
+              path="/usuarios"
+              element={token ? <Usuarios token={token} /> : toLoginMessage}
+            />
+            <Route path="/login" element={<Login token={token} setToken={setToken} />} />
+          </Routes>
+        </AnimatePresence>
       </div>
     </div>
   );
