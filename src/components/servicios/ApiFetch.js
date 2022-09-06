@@ -1,7 +1,7 @@
 const apiURL = "http://192.168.1.109/gkd_servicontrol_api/";
 
-function getApiURL(recurso) {
-  return apiURL + recurso;
+function getApiURL(recurso, id = null) {
+  return id ? apiURL + recurso + "/" + id : apiURL + recurso;
 }
 
 function getHeaders(token = "") {
@@ -23,7 +23,7 @@ export const getLogin = async (loginData) => {
   return await response.json();
 };
 
-export const getList = async (nombreLista, token) => {
-  const response = await fetch(getApiURL(nombreLista), { headers: getHeaders(token) });
+export const getRecurso = async (recurso, token, id = null) => {
+  const response = await fetch(getApiURL(recurso, id), { headers: getHeaders(token) });
   return await response.json();
 };

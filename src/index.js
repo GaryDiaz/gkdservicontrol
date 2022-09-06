@@ -5,6 +5,7 @@ import App from "./components/App";
 import "../node_modules/metro4/build/css/metro-all.min.css";
 import "../node_modules/metro4/build/js/metro";
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+import "./css/index.min.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

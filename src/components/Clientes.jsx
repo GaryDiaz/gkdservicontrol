@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Cliente from "./Cliente";
-import { getList } from "./servicios/ApiFetch";
+import { getRecurso } from "./servicios/ApiFetch";
 
 const Clientes = ({ token }) => {
   useEffect(() => {
-    getList("clientes", token)
+    getRecurso("clientes", token)
       .catch((error) => console.error("Error: ", error))
       .then((request) => setClientes(request.data));
-  }, [token]);
+  });
 
   const [clientes, setClientes] = useState([]);
 

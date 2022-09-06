@@ -1,0 +1,62 @@
+$color-primario: #005e5d;
+$color-secundario: #ab3e00;
+$color-info: #11aba8;
+$color-warning: #ab3e00;
+$color-seccess: #00aba8;
+$color-alert: #5e2200;
+
+@font-face {
+  font-family: Aileron;
+  src: url("/public/fonts/Aileron-Regular.otf");
+}
+@font-face {
+  font-family: Alegreya;
+  src: url("/public/fonts/Alegreya-Regular.ttf");
+}
+
+* {
+  font-family: Aileron, Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #f7f7f7;
+  background-image: url("/public/images/gkdservicontrol-marca370px-BG.png");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 220px;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: Alegreya;
+}
+
+h6.h6 {
+  color: $color-primario;
+  font-family: Alegreya;
+}
+
+.card {
+  background-color: rgba(#ffffff, 0.8);
+  border-radius: 0.7rem;
+
+  -webkit-box-shadow: 1px 1px 2px 0px rgba(85, 85, 85, 0.5);
+  box-shadow: 1px 1px 2px 0px rgba(85, 85, 85, 0.5);
+
+  .row {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .card-header {
+    background-color: rgba($color-primario, 0.8);
+    color: #f7f7f7;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+}
+
+.card:hover {
+  -webkit-box-shadow: 2px 2px 3px 1px rgba(85, 85, 85, 0.78);
+  box-shadow: 2px 2px 3px 1px rgba(85, 85, 85, 0.78);
+}

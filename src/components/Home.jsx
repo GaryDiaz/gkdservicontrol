@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Servicio from "./Servicio";
-import { getList } from "./servicios/ApiFetch";
+import { getRecurso } from "./servicios/ApiFetch";
 
 const Home = ({ token }) => {
   useEffect(() => {
-    getList("servicios", token)
+    getRecurso("servicios", token)
       .catch((error) => console.error("Error: ", error))
       .then((request) => setServicios(request.data));
   }, [token]);
@@ -23,7 +22,7 @@ const Home = ({ token }) => {
       <h1>Lista de Servicios</h1>
       {servicios.length > 0 ? (
         servicios.map((servicio) => {
-          return <Servicio key={servicio.id} servicio={servicio} />;
+          return <Servicio key={servicio.id} servicio={servicio} token={token} />;
         })
       ) : (
         <h2>No se encontraron servicios</h2>
