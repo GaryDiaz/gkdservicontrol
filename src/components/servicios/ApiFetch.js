@@ -7,7 +7,10 @@ function getApiURL(recurso, id = null) {
 function getHeaders(token = "") {
   let headers = { "Content-Type": "aplication/json" };
   if (token) {
-    headers = { "Content-Type": "aplication/json", "GKD-Token": token };
+    headers = {
+      "Content-Type": "aplication/json",
+      "GKD-Token": token,
+    };
   }
   return headers;
 }
@@ -16,9 +19,7 @@ export const getLogin = async (loginData) => {
   const response = await fetch(getApiURL("login"), {
     method: "POST",
     body: JSON.stringify(loginData),
-    headers: {
-      "Content-Type": "aplication/json",
-    },
+    headers: getHeaders(),
   });
   return await response.json();
 };

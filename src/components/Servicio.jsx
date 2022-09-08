@@ -1,22 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Cliente from "./Cliente";
 import Empleado from "./Empleado";
 import MomentDate from "./moment-date/MomentDate";
-import { getRecurso } from "./servicios/ApiFetch";
 
-const Servicio = ({ servicio, token }) => {
-  useEffect(() => {
-    getRecurso("cliente", token, servicio.idCliente)
-      .catch((error) => console.error("Error: ", error))
-      .then((request) => setCliente(request.data));
-    getRecurso("empleado", token, servicio.idEmpleado)
-      .catch((error) => console.error("Error: ", error))
-      .then((request) => setEmpleado(request.data));
-  });
-
-  const [cliente, setCliente] = useState(null);
-  const [empleado, setEmpleado] = useState(null);
-
+const Servicio = ({ servicio }) => {
   return (
     <div className="card" data-shadow="true">
       <div className="card-header">
@@ -78,19 +65,11 @@ const Servicio = ({ servicio, token }) => {
         <div className="row">
           <div className="cell-xl-4">
             <h6 className="h6">CLIENTE</h6>
-            {cliente ? (
-              <Cliente cliente={cliente} mostrarEnCard={false} />
-            ) : (
-              "Cliente" + <span className="mif-spinner4 ani-pulse"></span>
-            )}
+            <Cliente cliente={servicio.cliente} mostrarEnCard={false} />
           </div>
           <div className="cell-xl-4">
             <h6 className="h6">EMPLEADO</h6>
-            {empleado ? (
-              <Empleado empleado={empleado} mostrarEnCard={false} />
-            ) : (
-              "Empleado" + <span className="mif-spinner4 ani-pulse"></span>
-            )}
+            <Empleado empleado={servicio.empleado} mostrarEnCard={false} />
           </div>
           <div className="cell-xl-4">
             <h6 className="h6">USUARIO</h6>

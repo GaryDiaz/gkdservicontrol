@@ -22,7 +22,7 @@ const Home = ({ token }) => {
       <h1>Lista de Servicios</h1>
       {servicios.length > 0 ? (
         servicios.map((servicio) => {
-          return <Servicio key={servicio.id} servicio={servicio} token={token} />;
+          return <Servicio key={servicio.id} servicio={servicio} />;
         })
       ) : (
         <h2>No se encontraron servicios</h2>
