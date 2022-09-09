@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { CommandButton } from "./metroform/CommandButton";
-import { InputMaterial } from "./metroform/InputMaterial";
+import { CommandButton } from "./metroform/MetroButton";
+import { InputMaterial } from "./metroform/MetroInput";
 import { getLogin } from "./servicios/ApiFetch";
 
 const Login = ({ token, setToken }) => {

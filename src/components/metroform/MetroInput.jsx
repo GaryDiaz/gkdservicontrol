@@ -1,4 +1,4 @@
-export function InputMaterial({
+export const InputMaterial = ({
   type,
   placeholder,
   role,
@@ -8,7 +8,7 @@ export function InputMaterial({
   tipoNotificacion,
   nombreColor,
   ...props
-}) {
+}) => {
   return (
     <div>
       <input
@@ -26,4 +26,12 @@ export function InputMaterial({
       />
     </div>
   );
-}
+};
+
+export const Input = ({ type = "text", searchButton = false, ...props }) => {
+  return (
+    <div>
+      <input type={type} data-role="input" data-search-button={searchButton} {...props} />
+    </div>
+  );
+};
