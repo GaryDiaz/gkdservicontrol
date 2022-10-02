@@ -8,12 +8,12 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap-icons": "^1.9.1",
     "framer-motion": "^7.2.1",
-    "metro4": "^4.5.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.0.8",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

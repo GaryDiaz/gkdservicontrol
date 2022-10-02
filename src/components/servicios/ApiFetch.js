@@ -28,3 +28,21 @@ export const getRecurso = async (recurso, token, id = null) => {
   const response = await fetch(getApiURL(recurso, id), { headers: getHeaders(token) });
   return await response.json();
 };
+
+export const registrar = async (recurso, token, data) => {
+  const response = await fetch(getApiURL(recurso), {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: getHeaders(token),
+  });
+  return await response.json();
+};
+
+export const editar = async (recurso, token, data, id) => {
+  const response = await fetch(getApiURL(recurso, id), {
+    method: "PUT",
+    body: JSON.stringify(data),
+    headers: getHeaders(token),
+  });
+  return await response.json();
+};

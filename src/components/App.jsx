@@ -8,6 +8,8 @@ import Clientes from "./Clientes";
 import Empleados from "./Empleados";
 import Usuarios from "./Usuarios";
 import Login from "./Login";
+import { ToastContainer } from "react-toastify";
+import "../css/gkd-toastify.min.css";
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("GKD-Token"));
@@ -30,7 +32,7 @@ const App = () => {
   return (
     <div>
       {token ? <Navigation /> : <br />}
-      <div style={{ marginTop: "60px" }} className="container">
+      <div className="container">
         <AnimatePresence>
           <Routes location={location} key={location.pathname}>
             <Route
@@ -58,6 +60,7 @@ const App = () => {
           </Routes>
         </AnimatePresence>
       </div>
+      <ToastContainer />
     </div>
   );
 };

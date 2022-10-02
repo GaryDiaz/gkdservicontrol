@@ -1,30 +1,37 @@
-import React from "react";
+import { ButtonIconLabel } from "./forms/form-components/Button";
 
-const Empleado = ({ empleado, mostrarEnCard = true }) => {
+const Empleado = ({ empleado, mostrarEnCard = true, modoEdicion, setIdEnEdicion }) => {
   return mostrarEnCard ? (
     <div className="card">
       <div className="card-header">
-        <h2>{empleado.nombre + " " + empleado.apellido}</h2>
-        <h6>Cargo: {empleado.cargo}</h6>
-        <p>Telefono Principal: {empleado.telefonoPrincipal}</p>
-      </div>
-      <div className="card-content">
-        <div className="row">
-          <div className="cell-sm-6 cell-md-6 cell-lg-3 cell-xl-3">
-            Cedula: {empleado.cedula}
-          </div>
-          <div className="cell-sm-6 cell-md-6 cell-lg-3 cell-xl-3">
-            Telefono 2: {empleado.telefono2}
-          </div>
-          <div className="cell-sm-6 cell-md-6 cell-lg-3 cell-xl-3">
-            Telefono 3: {empleado.telefono3}
-          </div>
-          <div className="cell-sm-6 cell-md-6 cell-lg-3 cell-xl-3">
-            Estatus: {empleado.estatus}
-          </div>
+        <div>
+          <h2>{empleado.nombre + " " + empleado.apellido}</h2>
+        </div>
+        <div>
+          <h6>Cargo: {empleado.cargo}</h6>
+          <p>Telefono Principal: {empleado.telefonoPrincipal}</p>
         </div>
       </div>
-      <div className="card-footer">Ver Detalles</div>
+      <div className="card-content">
+        <div className="detalles">
+          <div>Cedula: {empleado.cedula}</div>
+          <div>Telefono 2: {empleado.telefono2}</div>
+          <div>Telefono 3: {empleado.telefono3}</div>
+          <div>Estatus: {empleado.estatus}</div>
+        </div>
+      </div>
+      <div className="card-footer">
+        <div className="botones">
+          <ButtonIconLabel
+            icon="bi-pencil-fill"
+            titulo="Editar"
+            onClick={() => {
+              setIdEnEdicion(empleado.id);
+              modoEdicion();
+            }}
+          />
+        </div>
+      </div>
     </div>
   ) : (
     <div>

@@ -3,32 +3,38 @@ import { ActiveLink } from "./react-router/ActiveLink";
 
 const Navigation = () => {
   return (
-    <nav
-      className="app-bar bg-darkTeal fg-white app-bar-expand"
-      data-role="appbar"
-      data-expand-point="md"
-    >
-      <Link className="brand no-hover" to="/">
-        <span style={{ fontSize: "24px" }} className="p-2 bd-light">
+    <nav className="navigation">
+      <Link className="brand" to="/">
+        <div>
           <img
             className="logoBrand"
             src="/images/gkdservicontrol64.png"
             alt="logo"
             style={{ height: "44px", paddingRight: "5px", paddingBottom: "8px" }}
           />
-          GKD Servicontrol
-        </span>
+          <span>GKD Servicontrol</span>
+        </div>
       </Link>
-      <ul className="app-bar-menu">
-        <li>
-          <ActiveLink to="servicios">Servicios</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="clientes">Clientes</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink to="empleados">Empleados</ActiveLink>
-        </li>
+      <ul>
+        <ActiveLink to="servicios">
+          <span className="icon">
+            <i className="bi bi-tools"></i>
+          </span>
+          <span className="text">Servicios</span>
+        </ActiveLink>
+        <ActiveLink to="clientes">
+          <span className="icon">
+            <i className="bi bi-person"></i>
+          </span>
+          <span className="text">Clientes</span>
+        </ActiveLink>
+        <ActiveLink to="empleados">
+          <span className="icon">
+            <i className="bi bi-person-workspace"></i>
+          </span>
+          <span className="text">Empleados</span>
+        </ActiveLink>
+        <div className="indicador"></div>
       </ul>
     </nav>
   );

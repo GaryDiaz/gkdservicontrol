@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+$color-fondo: #f7f7f7;
+$color-oscuro: #002424;
+$color-primario: #005e5d;
+$color-secundario: #ab3e00;
+$color-info: #11aba8;
+$color-warning: #ab3e00;
+$color-seccess: #00aba8;
+$color-alert: #5e2200;
+$color-gris: #757575;
+
+$rt-namespace: "Toastify";
+$rt-mobile: "only screen and (max-width : 480px)" !default;
+
+:root {
+  --toastify-color-light: #f7f7f7;
+  --toastify-color-dark: #002424;
+  --toastify-color-info: #11aba8;
+  --toastify-color-success: #005e5d;
+  --toastify-color-warning: #ab3e00;
+  --toastify-color-error: #5e2200;
+  --toastify-color-transparent: rgba(#f7f7f7, 0.95);
+
+  --toastify-icon-color-info: var(--toastify-color-info);
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-icon-color-warning: var(--toastify-color-warning);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-toast-width: 320px;
+  --toastify-toast-background: #f7f7f7;
+  --toastify-toast-min-height: 64px;
+  --toastify-toast-max-height: 800px;
+  --toastify-font-family: Aileron, Ubuntu, Arial, Helvetica, sans-serif;
+  --toastify-z-index: 9999;
+
+  --toastify-text-color-light: #757575;
+  --toastify-text-color-dark: #f7f7f7;
+
+  //Used only for colored theme
+  --toastify-text-color-info: #f7f7f7;
+  --toastify-text-color-success: #f7f7f7;
+  --toastify-text-color-warning: #f7f7f7;
+  --toastify-text-color-error: #f7f7f7;
+
+  --toastify-spinner-color: #757575;
+  --toastify-spinner-color-empty-area: #f7f7f7;
+
+  // Used when no type is provided
+  --toastify-color-progress-light: linear-gradient(
+    to right,
+    #11aba8,
+    #005e5d,
+    #005e5d,
+    #005e5d,
+    #002424,
+    #5e2200
+  );
+  // Used when no type is provided
+  --toastify-color-progress-dark: #002424;
+  --toastify-color-progress-info: var(--toastify-color-info);
+  --toastify-color-progress-success: var(--toastify-color-success);
+  --toastify-color-progress-warning: var(--toastify-color-warning);
+  --toastify-color-progress-error: var(--toastify-color-error);
+}
+
+@import "./../../node_modules/react-toastify/scss/toastContainer";
+@import "./../../node_modules/react-toastify/scss/toast";
+@import "./../../node_modules/react-toastify/scss/theme";
+@import "./../../node_modules/react-toastify/scss/closeButton";
+@import "./../../node_modules/react-toastify/scss/progressBar";
+@import "./../../node_modules/react-toastify/scss/icons";
+
+// entrance and exit animations
+@import "./../../node_modules/react-toastify/scss/animations/bounce";
+@import "./../../node_modules/react-toastify/scss/animations/zoom";
+@import "./../../node_modules/react-toastify/scss/animations/flip";
+@import "./../../node_modules/react-toastify/scss/animations/slide";
+@import "./../../node_modules/react-toastify/scss/animations/spin";
