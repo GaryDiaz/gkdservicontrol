@@ -3,20 +3,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { InputLabelFlotante } from "./forms/form-components/Input";
 import { ButtonIconLabel } from "./forms/form-components/Button";
-import { getLogin } from "./servicios/ApiFetch";
+import useUsuario from "./hook/useUsuario";
 
 const Login = ({ token, setToken }) => {
-  const loginDataInicial = {
-    nick: "",
-    clave: "",
-  };
-
-  const [loginData, setLoginData] = useState(loginDataInicial);
+  const [loginData, setLoginData, login] = useUsuario();
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const [error, setError] = useState("");
 
-  const login = () => {
-    getLogin(loginData).then((response) => {
+  const iniciarSesion = () => {
+    login().then((response) => {
       if (!response.error) {
         localStorage.setItem("GKD-Token", response.token);
         setToken(response.token);
@@ -40,7 +35,7 @@ const Login = ({ token, setToken }) => {
         <form
           onSubmit={(ev) => {
             ev.preventDefault();
-            login();
+            iniciarSesion();
           }}
           noValidate
         >

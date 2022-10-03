@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useModal from "./modal/useModal";
+import useModal from "./hook/useModal";
+import useFiltroBusqueda from "./hook/useFiltroBusqueda";
+import useEmpleado from "./hook/useEmpleado";
 import { motion } from "framer-motion";
 import Empleado from "./Empleado";
-import { getRecurso } from "./servicios/ApiFetch";
 import { ButtonCircularIcon } from "./forms/form-components/Button";
 import { SelectDropDown } from "./forms/form-components/Select";
 import { optionsFiltroEmpleados as options } from "./forms/options-dropdown";
@@ -11,18 +12,15 @@ import EmpleadoFormModal from "./forms/EmpleadoFormModal";
 import { notificar } from "./servicios/Notificacion";
 
 export const Empleados = ({ token }) => {
-  const [empleados, setEmpleados] = useState([]);
-  const [tipoConsulta, setTipoConsulta] = useState("todos");
-  const [textoBuscar, setTextoBuscar] = useState("");
-  const [textoDisabled, setTextoDisabled] = useState(true);
+  const empleado = useEmpleado([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [modalAbierto, abrirModal, cerrarModal, idEmpleado, setIdEmpleado] =
-    useModal(false);
+  const filtro = useFiltroBusqueda("empleados");
+  const modal = useModal(false);
 
   const getTipoConsulta = () => {
-    if (tipoConsulta === "todos") return "";
-    let opt = options.find((option) => option.value === tipoConsulta);
-    if (opt.value === tipoConsulta) {
+    if (filtro.tipoConsulta === "todos") return "";
+    let opt = options.find((option) => option.value === filtro.tipoConsulta);
+    if (opt.value === filtro.tipoConsulta) {
       return (
         <>
           <i className={"bi " + opt.icon} style={{ marginRight: "5px" }}></i>
@@ -33,39 +31,29 @@ export const Empleados = ({ token }) => {
   };
 
   useEffect(() => {
-    if (empleados.length === 0 && tipoConsulta === "todos") {
-      getRecurso("empleados", token).then((response) => {
+    if (empleado.empleados.length === 0 && filtro.tipoConsulta === "todos") {
+      empleado.listar({ recurso: "empleados", token }).then((response) => {
         if (!response.error) {
-          setEmpleados(response.data);
+          empleado.setEmpleados(response.data);
           setErrorMessage("");
         }
         if (response.error) {
-          setEmpleados([]);
+          empleado.setEmpleados([]);
           setErrorMessage(response.messages.error);
         }
       });
     }
-    if (tipoConsulta === "todos") {
-      setTextoBuscar("");
-    }
-    setTextoDisabled(tipoConsulta === "todos");
-  }, [empleados.length, tipoConsulta, token]);
+  }, [empleado, filtro.tipoConsulta, token]);
 
   const buscarPorTexto = ({ texto, tipo }) => {
-    let recurso = "empleados";
-    const txt = texto !== undefined ? texto : textoBuscar;
-    const tpo = tipo !== undefined ? tipo : tipoConsulta;
-    if (txt && tpo !== "todos") {
-      recurso = `${recurso}/${tpo}/${txt}`;
-    }
-    console.log("recurso:", recurso);
-    getRecurso(recurso, token).then((request) => {
+    const recurso = filtro.recursoFiltro({ texto, tipo });
+    empleado.listar({ recurso, token }).then((request) => {
       if (!request.error) {
-        setEmpleados(request.data);
+        empleado.setEmpleados(request.data);
         setErrorMessage("");
       }
       if (request.error) {
-        setEmpleados([]);
+        empleado.setEmpleados([]);
         setErrorMessage(request.messages.error);
         notificar(request.messages.error, "warning");
       }
@@ -79,10 +67,10 @@ export const Empleados = ({ token }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
     >
-      {modalAbierto && (
+      {modal.esVisible && (
         <EmpleadoFormModal
-          cerrarModal={cerrarModal}
-          idEmpleado={idEmpleado}
+          cerrarModal={modal.cerrar}
+          idEmpleado={modal.id}
           token={token}
           notificar={notificar}
         />
@@ -93,14 +81,14 @@ export const Empleados = ({ token }) => {
             icon="bi-plus-lg"
             titulo=""
             onClick={() => {
-              abrirModal();
+              modal.abrir();
             }}
           />
         </div>
         <div className="ob-selector">
           <SelectDropDown
-            value={tipoConsulta}
-            setValue={setTipoConsulta}
+            value={filtro.tipoConsulta}
+            setValue={filtro.setTipoConsulta}
             options={options}
             accion={buscarPorTexto}
           />
@@ -110,27 +98,27 @@ export const Empleados = ({ token }) => {
             <InputLabelFlotante
               label={getTipoConsulta()}
               type="search"
-              value={textoBuscar}
+              value={filtro.textoBuscar}
               onChange={(ev) => {
-                setTextoBuscar(ev.target.value);
+                filtro.setTextoBuscar(ev.target.value);
                 buscarPorTexto({ texto: ev.target.value });
               }}
               onKeyPress={(ev) => {
                 if (ev.key === "Enter") ev.preventDefault();
               }}
-              disabled={textoDisabled}
+              disabled={filtro.textoDisabled}
             />
           </form>
         </div>
       </div>
-      {empleados && empleados.length ? (
-        empleados.map((empleado) => {
+      {empleado.empleados && empleado.empleados.length ? (
+        empleado.empleados.map((empleado) => {
           return (
             <Empleado
               key={empleado.id}
               empleado={empleado}
-              modoEdicion={abrirModal}
-              setIdEnEdicion={setIdEmpleado}
+              modoEdicion={modal.abrir}
+              setIdEnEdicion={modal.setId}
             />
           );
         })
