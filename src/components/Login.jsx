@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { InputLabelFlotante } from "./forms/form-components/Input";
 import { ButtonIconLabel } from "./forms/form-components/Button";
-import useUsuario from "./hook/useUsuario";
+import useUsuario from "./hooks/useUsuario";
 
 const Login = ({ token, setToken }) => {
   const [loginData, setLoginData, login] = useUsuario();

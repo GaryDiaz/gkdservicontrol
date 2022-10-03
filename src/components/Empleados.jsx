@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useModal from "./hook/useModal";
-import useFiltroBusqueda from "./hook/useFiltroBusqueda";
-import useEmpleado from "./hook/useEmpleado";
+import useModal from "./hooks/useModal";
+import useFiltroBusqueda from "./hooks/useFiltroBusqueda";
+import useEmpleado from "./hooks/useEmpleado";
 import { motion } from "framer-motion";
 import Empleado from "./Empleado";
 import { ButtonCircularIcon } from "./forms/form-components/Button";

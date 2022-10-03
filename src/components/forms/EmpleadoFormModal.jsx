@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { InputLabelFlotante, InputSwitch } from "./form-components/Input";
 import Modal from "../modal/Modal";
-import useEmpleado from "../hook/useEmpleado";
+import useEmpleado from "../hooks/useEmpleado";
 
 const EmpleadoFormModal = ({ idEmpleado, token, cerrarModal, notificar }) => {
   const empleado = useEmpleado();
